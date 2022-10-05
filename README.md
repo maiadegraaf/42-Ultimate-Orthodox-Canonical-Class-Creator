@@ -35,24 +35,27 @@ Creates two file's that look like this:
 class Brain
 {
 private: 
-	std::string Ideas;
-	int howManyIdeas;
+	std::string _owner;
+	int _numTimesHitInTheHead;
+	int _remainingBrainCells;
  
 public: 
 // Constructor 
 	Brain(); 
 	Brain( const Brain &rhs); 
-	Brain(std::string newIdeas, int newHowManyIdeas);
+	Brain(std::string newOwner, int newNumTimesHitInTheHead, int newRemainingBrainCells);
 	~Brain(); 
 	Brain& operator=( const Brain &rhs); 
-//Getters 
-	std::string getIdeas(); 
-	int getHowManyIdeas(); 
-//Setters 
-	void setIdeas(std::string Ideas); 
-	void setHowManyIdeas(int howManyIdeas); 
-// ToString Method 
-	void toString(); 
+// Getters 
+	std::string getOwner(); 
+	int getNumTimesHitInTheHead(); 
+	int getRemainingBrainCells(); 
+// Setters 
+	void setOwner(std::string _owner); 
+	void setNumTimesHitInTheHead(int _numTimesHitInTheHead); 
+	void setRemainingBrainCells(int _remainingBrainCells); 
+// Output 
+	void output(); 
 }; 
  
 #endif
@@ -62,7 +65,7 @@ public:
 #include "Brain.hpp"
 // Constructor initializes attributes to 0 by default 
 Brain::Brain()
-	: Ideas(0), howManyIdeas(0)
+	: _owner(0), _numTimesHitInTheHead(0), _remainingBrainCells(0)
 {
 
 }
@@ -72,8 +75,8 @@ Brain::Brain( const Brain& rhs)
 	*this = rhs;
 }
  
-Brain::Brain(std::string newIdeas, int newHowManyIdeas) 
-	: Ideas(newIdeas), howManyIdeas(newHowManyIdeas)
+Brain::Brain(std::string newOwner, int newNumTimesHitInTheHead, int newRemainingBrainCells) 
+	: _owner(newOwner), _numTimesHitInTheHead(newNumTimesHitInTheHead), _remainingBrainCells(newRemainingBrainCells)
 {
 
 }
@@ -88,19 +91,22 @@ Brain&	Brain::operator=( const Brain& rhs )
 	return *this;
 }
 
-//Getters 
-std::string Brain::getIdeas() { return Ideas; }
-int Brain::getHowManyIdeas() { return howManyIdeas; }
+// Getters 
+std::string Brain::getOwner() { return _owner; }
+int Brain::getNumTimesHitInTheHead() { return _numTimesHitInTheHead; }
+int Brain::getRemainingBrainCells() { return _remainingBrainCells; }
  
-//Setters 
-void Brain::setIdeas(std::string newIdeas) { Ideas = newIdeas; }
-void Brain::setHowManyIdeas(int newHowManyIdeas) { howManyIdeas = newHowManyIdeas; }
+// Setters 
+void Brain::setOwner(std::string newOwner) { _owner = newOwner; }
+void Brain::setNumTimesHitInTheHead(int newNumTimesHitInTheHead) { _numTimesHitInTheHead = newNumTimesHitInTheHead; }
+void Brain::setRemainingBrainCells(int newRemainingBrainCells) { _remainingBrainCells = newRemainingBrainCells; }
  
-// toString 
-void Brain::toString()
+// Output
+void Brain::output()
 {
-  std::cout << "Ideas : " << Ideas << std::endl; 
-  std::cout << "howManyIdeas : " << howManyIdeas << std::endl; 
+  std::cout << "owner : " << _owner << std::endl; 
+  std::cout << "numTimesHitInTheHead : " << _numTimesHitInTheHead << std::endl; 
+  std::cout << "remainingBrainCells : " << _remainingBrainCells << std::endl; 
 }
 ```
 

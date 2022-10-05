@@ -52,7 +52,7 @@ fi
 printf "\t~$1(); \n" >> $1.hpp
 printf "\t$1& operator=( const $1 &rhs); \n" >> $1.hpp
 
-echo "//Getters " >> $1.hpp
+echo "// Getters " >> $1.hpp
 for i in "${@:2}"; do
     if [ $((c%2)) -eq 0 ] 
     then
@@ -64,7 +64,7 @@ for i in "${@:2}"; do
     c=$((c+1))
 done
 
-echo "//Setters " >> $1.hpp
+echo "// Setters " >> $1.hpp
 for i in "${@:2}"; do
     if [ $((c%2)) -eq 0 ] 
     then
@@ -78,8 +78,8 @@ for i in "${@:2}"; do
     fi
     c=$((c+1))
 done
-echo "// ToString Method " >> $1.hpp
-printf "\tvoid toString(); \n" >> $1.hpp
+echo "// Output " >> $1.hpp
+printf "\tvoid output(); \n" >> $1.hpp
 
 echo "}; " >> $1.hpp
 
@@ -160,7 +160,7 @@ echo "$1&\t$1::operator=( const $1& rhs )\n{" >> $1.cpp
 echo "\treturn *this;" >> $1.cpp
 echo "}\n" >> $1.cpp
 
-echo "//Getters " >> $1.cpp
+echo "// Getters " >> $1.cpp
 for i in "${@:2}"; do
     if [ $((c%2)) -eq 0 ] 
     then
@@ -176,7 +176,7 @@ for i in "${@:2}"; do
 done
 
 echo " " >> $1.cpp
-echo "//Setters " >> $1.cpp
+echo "// Setters " >> $1.cpp
 for i in "${@:2}"; do
     if [ $((c%2)) -eq 0 ] 
     then
@@ -191,8 +191,8 @@ for i in "${@:2}"; do
 done
 
 echo " " >> $1.cpp
-echo "// toString " >> $1.cpp
-echo "void $1::toString()\n{" >> $1.cpp
+echo "// Output" >> $1.cpp
+echo "void $1::output()\n{" >> $1.cpp
 
 for i in "${@:2}"; do
     if [ $((c%2)) -eq 0 ] 
