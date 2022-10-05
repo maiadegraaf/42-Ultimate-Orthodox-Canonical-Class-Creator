@@ -1,4 +1,5 @@
 uppercaseName=$(printf '%s' "$1" | tr "a-z" "A-Z" )
+# hpp file
 
 echo "#ifndef ${uppercaseName}_H" > $1.hpp
 echo "#define ${uppercaseName}_H" >> $1.hpp
@@ -17,7 +18,7 @@ c=1
 for i in "${@:2}"; do
     if [ $((c%2)) -eq 0 ] 
     then
-        echo "$i;" >> $1.hpp
+        echo "_$i;" >> $1.hpp
     else
         printf "\t$i " >> $1.hpp
     fi
@@ -68,7 +69,7 @@ for i in "${@:2}"; do
     if [ $((c%2)) -eq 0 ] 
     then
 		j="$(tr "a-z" "A-Z" <<< ${i:0:1})${i:1}"
-        printf "\tvoid set$j(${prev} $i); \n" >> $1.hpp
+        printf "\tvoid set$j(${prev} _$i); \n" >> $1.hpp
 
     else
         
@@ -86,15 +87,15 @@ echo " " >> $1.hpp
 
 echo "#endif" >> $1.hpp
 
-echo "#include \"$1.hpp\"" >> $1.cpp
-
+# cpp file
+echo "#include \"$1.hpp\"" > $1.cpp
 echo "// Constructor initializes attributes to 0 by default " >> $1.cpp
 echo "$1::$1()" >> $1.cpp
 printf "\t: " >> $1.cpp
 for i in "${@:2}"; do
     if [ $((c%2)) -eq 0 ] 
     then
-        printf "$i(0)" >> $1.cpp
+        printf "_$i(0)" >> $1.cpp
 		if [ $i != ${!#} ]
 		then
 			printf ", " >> $1.cpp
@@ -137,7 +138,7 @@ if [ $# -gt 2 ]
 			if [ $((c%2)) -eq 0 ]
 			then
 				j="$(tr "a-z" "A-Z" <<< ${i:0:1})${i:1}"
-				printf "$i(new$j)" >> $1.cpp
+				printf "_$i(new$j)" >> $1.cpp
 				if [ $i != ${!#} ]
 				then
 					printf ", " >> $1.cpp
@@ -164,7 +165,7 @@ for i in "${@:2}"; do
     if [ $((c%2)) -eq 0 ] 
     then
 		j="$(tr "a-z" "A-Z" <<< ${i:0:1})${i:1}"
-        echo "$prev $1::get$j() { return $i; }" >> $1.cpp
+        echo "$prev $1::get$j() { return _$i; }" >> $1.cpp
         
 
     else
@@ -180,7 +181,7 @@ for i in "${@:2}"; do
     if [ $((c%2)) -eq 0 ] 
     then
 		j="$(tr "a-z" "A-Z" <<< ${i:0:1})${i:1}"
-        echo "void $1::set$j($prev new$j) { $i = new$j; }" >> $1.cpp
+        echo "void $1::set$j($prev new$j) { _$i = new$j; }" >> $1.cpp
 
     else
         
@@ -196,7 +197,7 @@ echo "void $1::toString()\n{" >> $1.cpp
 for i in "${@:2}"; do
     if [ $((c%2)) -eq 0 ] 
     then
-        echo "  std::cout << \"$i : \" << $i << std::endl; " >> $1.cpp
+        echo "  std::cout << \"$i : \" << _$i << std::endl; " >> $1.cpp
     fi
     c=$((c+1))
 done

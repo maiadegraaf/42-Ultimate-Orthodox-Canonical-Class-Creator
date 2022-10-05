@@ -20,7 +20,7 @@ Like so:
 
 For example:
 ```
-./createClass.sh Brain std::string Ideas int howManyIdeas
+./createClass.sh Brain std::string owner int numTimesHitInTheHead int remainingBrainCells 
 ```
 
 Creates two file's that look like this:
