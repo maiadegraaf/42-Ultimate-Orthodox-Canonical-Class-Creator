@@ -22,6 +22,7 @@ For example:
 ```
 ./createClass.sh Brain std::string owner int numTimesHitInTheHead int remainingBrainCells 
 ```
+\**Remember to use `std::string` instead of `string` as we aren't allowed to use namespaces at 42*
 
 Creates two file's that look like this:
 #### Brain.hpp
